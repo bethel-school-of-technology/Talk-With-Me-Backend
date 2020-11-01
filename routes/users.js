@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-const database = {
+const database = {  // Need some email object
   users: [
     {
       id: '123',
