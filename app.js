@@ -11,6 +11,18 @@ var postRouter = require('./routes/posts');
 var groupsRouter = require('./routes/groups');
 
 
+/////////////////////////////////////////////////
+
+
+/*
+mongodb+srv://<username>:<password>@cluster0.nhcrc.mongodb.net/<dbname>?retryWrites=true&w=majority
+*/
+
+
+/////////////////////////////////////////////////
+
+
+
 var app = express();
 
 // view engine setup
