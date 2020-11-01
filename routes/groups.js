@@ -1,11 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const app = express();
-
-app.use(bodyParser.json());
-app.use(cors());
+const { FailedDependency } = require('http-errors');
+var router = express.Router();
 
 const database = {
     groups: [
@@ -30,11 +25,11 @@ const database = {
     ]
 }
 
-app.get('/group_list', (req, res) => {
+router.get('/group_list', (req, res) => {
     res.send(database.users);
 })
 
-app.post('/create_group', (req, res) => {
+router.post('/create_group', (req, res) => {
     const {name, description } = req.body;
     database.groups.push({
         id: '125',
@@ -46,7 +41,7 @@ app.post('/create_group', (req, res) => {
     });
 })
 
-app.get('/profile/:id', (req, res) => {
+router.get('/profile/:id', (req, res) => {
     const { id } = req.params;
     let found = false;
     database.groups.forEach(group => {
@@ -60,7 +55,7 @@ app.get('/profile/:id', (req, res) => {
     }
 })
 
-app.put('/edit_group', (req, res) => {
+router.put('/edit_group', (req, res) => {
     const { id, name, description } = req.body;
     let found = false;
     database.groups.forEach(group => {
@@ -76,7 +71,7 @@ app.put('/edit_group', (req, res) => {
     }
 })
 
-app.post('/delete_group/:id', (req, res) => {
+router.post('/delete_group/:id', (req, res) => {
     const { id } = req.body;
     let found = false;
     database.groups.forEach(group => {
@@ -90,3 +85,5 @@ app.post('/delete_group/:id', (req, res) => {
         res.status(400).json('not found');
     }
 })
+
+module.exports = router;
