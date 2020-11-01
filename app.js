@@ -1,25 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var profileRouter = require('./routes/profile');
-// var postsRouter = require('./routes/posts');
-// var groupsRouter = require('./routes/groups');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require('mongoose');
 
 
-/////////////////////////////////////////////////
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const profileRouter = require('./routes/profile');
+const postsRouter = require('./routes/posts');
+const groupsRouter = require('./routes/groups');
 
-
-/*
-mongodb+srv://<username>:<password>@cluster0.nhcrc.mongodb.net/<dbname>?retryWrites=true&w=majority
-*/
-
-
-/////////////////////////////////////////////////
+mongoose.connect("mongodb+srv://teamboogle:wMKsYJNhTfL89k9@cluster0.nhcrc.mongodb.net/TalkWithMe?retryWrites=true&w=majority", {useNewUrlParser: true});
 
 
 
@@ -56,5 +49,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function(){
+  console.log('Connection Secured');
+})
 
 module.exports = app;
