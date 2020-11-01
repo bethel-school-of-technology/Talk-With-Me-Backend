@@ -18,9 +18,6 @@ mongoose.connect("mongodb+srv://teamboogle:wMKsYJNhTfL89k9@cluster0.nhcrc.mongod
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
