@@ -1,44 +1,51 @@
 const express = require('express');
 const { FailedDependency } = require('http-errors');
 var router = express.Router();
+var Group = require('../models/Group');
 
-const database = {
-    groups: [
-        {
-            id: '123',
-            name: 'google',
-            description: 'we google things',
-            likes: 0,
-            members: 0,
-            created: new Date(),
-            deleted: false,
-        },
-        {
-            id: '124',
-            name: 'yahoo',
-            description: 'we yahoo things',
-            likes: 0,
-            members: 0,
-            created: new Date(),
-            deleted: false
-        }
-    ]
-}
+// const database = {
+//     groups: [
+//         {
+//             id: '123',
+//             name: 'google',
+//             description: 'we google things',
+//             likes: 0,
+//             members: 0,
+//             created: new Date(),
+//             deleted: false,
+//         },
+//         {
+//             id: '124',
+//             name: 'yahoo',
+//             description: 'we yahoo things',
+//             likes: 0,
+//             members: 0,
+//             created: new Date(),
+//             deleted: false
+//         }
+//     ]
+// }
 
 router.get('/group_list', (req, res) => {
     res.send(database.users);
 })
 
+
+//Object gets created under collection: groups
+
 router.post('/create_group', (req, res) => {
-    const {name, description } = req.body;
-    database.groups.push({
-        id: '125',
-        name: name,
-        description: description,
-        likes: 0,
-        memebers: 0,
-        joined: new Date()
-    });
+    try {
+        const newGroup = Group.create(req.body);
+    
+        res.status(201).json({
+          data: { Groups: newGroup }
+        });
+      } catch (err) {
+        res.status(400).json({
+          status: 'fail',
+          message: err
+        });
+      }
 })
 
 router.get('/profile/:id', (req, res) => {
