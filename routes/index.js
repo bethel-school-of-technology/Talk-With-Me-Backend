@@ -1,4 +1,5 @@
 var express = require('express');
+const { FailedDependency } = require('http-errors');
 var router = express.Router();
 var User = require('../models/User');
 
@@ -18,6 +19,21 @@ router.get('/', async function(req, res, next) {
     });
   }
 
+});
+
+router.post('/', async function (req, res){
+  try {
+    const newUser = await User.create(req.body);
+
+    res.status(201).json({
+      data: { user: newUser }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err
+    });
+  }
 });
 
 module.exports = router;
