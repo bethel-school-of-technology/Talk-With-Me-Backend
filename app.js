@@ -13,8 +13,8 @@ const usersRouter = require('./routes/users');
 const profileRouter = require('./routes/profile');
 const postsRouter = require('./routes/posts');
 const groupsRouter = require('./routes/groups');
-const loginRouter = require('./routes/login');
-const resgisterRouter = require('./routes/login');
+const signinRouter = require('./routes/signin');
+const resgisterRouter = require('./routes/signin');
 
 
 
@@ -37,7 +37,7 @@ app.use('/users', usersRouter);
 app.use('/profile', profileRouter);
 app.use('/posts', postsRouter);
 app.use('/groups', groupsRouter);
-app.use('/login', loginRouter);
+app.use('/signin', signinRouter);
 app.use('/register', resgisterRouter);
 
 
