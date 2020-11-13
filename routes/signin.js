@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcrypt-nodejs');
 
-router.post('/', function (req, res, next) {
-    res.send('Working!')
+
+router.get('/', function (req, res, next) {
+    res.send('Working on the signin part!');
 });
 
 
