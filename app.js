@@ -14,7 +14,7 @@ const profileRouter = require('./routes/profile');
 const postsRouter = require('./routes/posts');
 const groupsRouter = require('./routes/groups');
 const signinRouter = require('./routes/signin');
-const resgisterRouter = require('./routes/signin');
+const registerRouter = require('./routes/signin');
 
 
 
@@ -38,7 +38,7 @@ app.use('/profile', profileRouter);
 app.use('/posts', postsRouter);
 app.use('/groups', groupsRouter);
 app.use('/signin', signinRouter);
-app.use('/register', resgisterRouter);
+app.use('/register', registerRouter);
 
 
 // catch 404 and forward to error handler
