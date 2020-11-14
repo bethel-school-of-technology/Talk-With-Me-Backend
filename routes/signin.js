@@ -7,5 +7,4 @@ router.get('/', function (req, res, next) {
     res.send('Working on the signin part!');
 });
 
-
 module.exports = router;
