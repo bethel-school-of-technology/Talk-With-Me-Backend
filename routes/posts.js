@@ -4,20 +4,26 @@ var router = express.Router();
 var Post = require('../models/Posts');
 
 router.get('/post_list', (req, res) => {
-  res.send(database.Post);
+  res.send(database.users);
 })
-
 //Create
-exports.createPost = async (req, res) => {
-  const newPost = await Post.create(req.body);
+router.post ('/create_post', async (req, res) => {
+  try {
+    const newPost = await Post.create(req.body);
 
-  res.status(201).json({
-    status: 'success',
-    data: { post: newPost }
-  });
-};
+    res.status(201).json({
+      status: 'success',
+      data: { posts: newPost }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err
+    });
+  }
+});
 //Get
-exports.getPost = async (req, res) => {
+router.get ('/post/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -29,10 +35,10 @@ exports.getPost = async (req, res) => {
     res.status(404).json({
       status: 'fail',
       message: err
-    });
+});
 
     //Update
-    exports.updatePost = async (req, res) => {
+    router.put ('/edit_group', async (req, res) => {
       try {
         const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
           new: true,
@@ -49,9 +55,9 @@ exports.getPost = async (req, res) => {
           message: err
         });
       }
-    };
+    });
     //Delete
-    exports.deletePost = async (req, res) => {
+    router.post('/delete_group/:id', async (req, res) => {
       try {
         await Post.findByIdAndDelete(req.params.id);
         res.status(204).json({
@@ -64,9 +70,9 @@ exports.getPost = async (req, res) => {
           message: err
         });
       }
-    };
+    });
   }
-};
+});
 
 
 module.exports = router;

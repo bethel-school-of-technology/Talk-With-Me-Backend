@@ -5,16 +5,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var Post = new Schema({
-    title: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    body: {
-        type: String,
-        required: true,
-        unique: true
-    }
+   body: String,
+   title: String,
+   
+    
 });
 
 
