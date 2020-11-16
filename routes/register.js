@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let User = require('../models/User');
-const bcrypt = require('bcrypt-nodejs');
+let authService = require('../services/auth');
 
 
 router.get('/', function (req, res, next) {
@@ -11,7 +11,12 @@ router.get('/', function (req, res, next) {
 
 router.post('/', async (req, res, next) => {
     try {
-        const newUser = await User.create(req.body);
+        const newUser = await User.create({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: authService.hashPassword(req.body.password)
+        });
         console.log(newUser);
         res.status(201).json({
             data: { user: newUser }
