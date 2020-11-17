@@ -21,6 +21,7 @@ router.post('/', async (req, res, next) => {
         res.status(201).json({
             data: { user: newUser }
         });
+        res.send('Creation Successful')
     } catch (err) {
         res.status(400).json({
             status: 'failed to create user',
