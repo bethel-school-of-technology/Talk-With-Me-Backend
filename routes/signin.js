@@ -1,10 +1,57 @@
 var express = require('express');
+const { FailedDependency } = require('http-errors');
 var router = express.Router();
-const bcrypt = require('bcrypt-nodejs');
+let User = require('../models/User');
+var authService = require('../services/auth');
 
 
-router.get('/', function (req, res, next) {
-    res.send('Working on the signin part!');
+router.get('/', async (req, res, next) => {
+    try {
+        const users = await User.find({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        res.status(200).json({
+            data: { users }
+        });
+    } catch (err) {
+        res.status(404).json({
+            status: 'failed to find user',
+            message: err
+        });
+    }
 });
+
+
+
+router.post('/', async (req, res, next) => {
+        const newUser = await User.findOne({
+            email: req.body.email
+        }).then(user => {
+            console.log(user)
+            if(!user){
+                console.log('error is called')
+                console.log(err);
+                res.status(400).json({
+                status: 'failed to find user',
+                message: err
+                });
+            } else {
+                if (user) {
+                    let passwordMatch = authService.comparePasswords(req.body.password, user.password)
+                    if (passwordMatch) {
+                        let token = authService.signUser(User);
+                        res.cookie('jwt', token);
+                        res.send('Login successful');
+                    }
+                } else {
+                    res.send('wrong password')
+                }
+            }
+        });
+    });
 
 module.exports = router;

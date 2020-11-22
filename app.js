@@ -6,7 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://teamboogle:wMKsYJNhTfL89k9@cluster0.nhcrc.mongodb.net/TalkWithMe?retryWrites=true&w=majority", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://teamboogle:wMKsYJNhTfL89k9@cluster0.nhcrc.mongodb.net/TalkWithMe?retryWrites=true&w=majority", { useNewUrlParser: true },);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -14,8 +14,7 @@ const profileRouter = require('./routes/profile');
 const postsRouter = require('./routes/posts');
 const groupsRouter = require('./routes/groups');
 const signinRouter = require('./routes/signin');
-const registerRouter = require('./routes/signin');
-
+const registerRouter = require('./routes/register');
 
 
 
@@ -41,6 +40,7 @@ app.use('/signin', signinRouter);
 app.use('/register', registerRouter);
 
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -62,6 +62,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function(){
   console.log('Connection Secured');
+
+  
 })
 
 module.exports = app;
