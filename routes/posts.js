@@ -23,6 +23,7 @@ router.post ('/create_post', async (req, res) => {
   }
 });
 //Get
+
 router.get ('/post/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -71,6 +72,7 @@ router.get ('/post/:id', async (req, res) => {
         });
       }
     });
+    
   }
 });
 
