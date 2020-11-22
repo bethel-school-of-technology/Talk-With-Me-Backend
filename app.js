@@ -14,7 +14,7 @@ const profileRouter = require('./routes/profile');
 const postsRouter = require('./routes/posts');
 const groupsRouter = require('./routes/groups');
 const signinRouter = require('./routes/signin');
-const registerRouter = require('./routes/signin');
+const registerRouter = require('./routes/register');
 
 
 
