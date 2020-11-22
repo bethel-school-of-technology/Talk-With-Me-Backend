@@ -5,8 +5,14 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Group = new Schema({
-    name: String,
-    description: String,
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
     members: Number,
     likes: Number
 });
